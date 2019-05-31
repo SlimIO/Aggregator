@@ -23,7 +23,7 @@
     },
     "homepage": "https://github.com/SlimIO/Aggregator#readme",
     "dependencies": {
-        "@slimio/addon": "^0.17.0"
+        "@slimio/addon": "^0.17.1"
     },
     "devDependencies": {
         "@commitlint/cli": "^8.0.0",
