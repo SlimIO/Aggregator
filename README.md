@@ -7,15 +7,24 @@ SlimIO Aggregator
 
 ## Requirements
 - Node.js v10 or higher
+- [SlimIO Agent](https://github.com/SlimIO/Agent)
 
 ## Getting Started
-TBC
+This package is available in the SlimIO Package Registry and can be easily installed with [SlimIO CLI](https://github.com/SlimIO/CLI).
 
-## Usage example
-TBC
+```bash
+$ slimio --add aggregator
+# or
+$ slimio --add https://github.com/SlimIO/Aggregator
+```
 
-## API
-TBC
+> Note: this addon is automatically installed with the slimio -i command.
+
+## Dependencies
+
+|Name|Refactoring|Security Risk|Usage|
+|---|---|---|---|
+|[@slimio/addon](https://github.com/SlimIO/Addon#readme)|⚠️Major|Low|Addon default class|
 
 ## License
 MIT
