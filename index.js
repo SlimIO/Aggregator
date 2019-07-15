@@ -1,3 +1,5 @@
+"use strict";
+
 // Require Third-Party Dependencies
 const Addon = require("@slimio/addon");
 
@@ -7,8 +9,8 @@ const Cards = new Map();
 // Create Addon
 const Aggregator = new Addon("aggregator").lockOn("events");
 
-Aggregator.on("awake", () => {
-    Aggregator.ready();
+Aggregator.on("awake", async() => {
+    await Aggregator.ready();
 });
 
 Aggregator.of("Metric.create").subscribe(async([dbName, id]) => {
