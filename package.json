@@ -15,7 +15,14 @@
         "type": "git",
         "url": "git+https://github.com/SlimIO/Aggregator.git"
     },
-    "keywords": [],
+    "keywords": [
+        "aggregator",
+        ""
+    ],
+    "files": [
+        "index.js",
+        "slimio.toml"
+    ],
     "author": "SlimIO",
     "license": "MIT",
     "bugs": {
