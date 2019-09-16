@@ -3,31 +3,34 @@
 // Require Third-Party Dependencies
 const Addon = require("@slimio/addon");
 
-// Globals
+// CONSTANTS & GLOBALS
+const AGGREGATE_INTERVAL_MS = 30000;
 const Cards = new Map();
 
-// Create Addon
 const Aggregator = new Addon("aggregator").lockOn("events");
 
+/**
+ * @function aggregateInterval
+ */
+async function aggregateInterval() {
+    Aggregator.logger.writeLine("interval triggered");
+    console.log(Cards);
+}
+Aggregator.registerInterval(aggregateInterval, AGGREGATE_INTERVAL_MS);
+
 Aggregator.on("awake", async() => {
+    const mics = await Aggregator.sendOne("events.get_mic");
+    Aggregator.logger.writeLine(`fetch ${mics.length} metric identity cards`);
+
+    mics.filter((mic) => !Cards.has(mic.id))
+        .forEach((mic) => Cards.set(mic.id, { dt: Date.now(), mic }));
     await Aggregator.ready();
 });
 
-Aggregator.of("Metric.create").subscribe(async([dbName, id]) => {
-    if (Cards.has(id)) {
-        return;
-    }
-
-    // console.log(`METRIC CREATED - ${dbName}.db, id: ${id}`);
-    try {
-        const mic = await Aggregator.sendOne("events.get_mic", [id]);
-        console.log(mic);
-        Cards.set(id, { dt: Date.now(), mic });
-    }
-    catch (err) {
-        console.error(err);
-    }
+Aggregator.of("Metric.create").filter((row) => !Cards.has(row[1])).subscribe(async(row) => {
+    const [, id] = row;
+    const mic = await Aggregator.sendOne("events.get_mic", [id]);
+    Cards.set(id, { dt: Date.now(), mic });
 }, console.error);
 
-// Export "Aggregator" addon for Core
 module.exports = Aggregator;
