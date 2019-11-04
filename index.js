@@ -1,11 +1,9 @@
-"use strict";
-
 // Require Third-Party Dependencies
-const FastPriorityQueue = require("fastpriorityqueue");
-const Addon = require("@slimio/addon");
+import FastPriorityQueue from "fastpriorityqueue";
+import Addon from "@slimio/addon";
 
 // Require Internal Dependencies
-const { buildMICRow } = require("./src/utils");
+import { buildMICRow } from "./src/utils";
 
 // CONSTANTS & GLOBALS
 const AGGREGATE_INTERVAL_MS = 1000;
@@ -52,7 +50,7 @@ Aggregator.on("awake", async() => {
     await Aggregator.ready();
 });
 
-Aggregator.of("Metric.create").filter((row) => !Cards.has(row[1])).subscribe(async(row) => {
+Aggregator.of(Addon.Subjects.micCreate).filter((row) => !Cards.has(row[1])).subscribe(async(row) => {
     try {
         const [, id] = row;
         const mic = await Aggregator.sendOne("events.get_mic", [id]);
@@ -64,4 +62,4 @@ Aggregator.of("Metric.create").filter((row) => !Cards.has(row[1])).subscribe(asy
     }
 }, console.error);
 
-module.exports = Aggregator;
+export default Aggregator;

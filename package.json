@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "description": "SlimIO Aggregator",
     "main": "index.js",
+    "type": "module",
     "scripts": {
         "start": "node index.js",
         "prepublishOnly": "pkg-ok",

@@ -1,14 +1,12 @@
-"use strict";
-
 // Require Third-party Dependencies
-const Scheduler = require("@slimio/scheduler");
+import Scheduler from "@slimio/scheduler";
 
 /**
  * @function buildMICRow
  * @param {*} mic
  * @returns {object}
  */
-function buildMICRow(mic) {
+export function buildMICRow(mic) {
     const { sample_interval, aggregation_mode } = mic;
     const interval = sample_interval;
 
@@ -18,5 +16,3 @@ function buildMICRow(mic) {
         aggregation_mode
     };
 }
-
-module.exports = { buildMICRow };
