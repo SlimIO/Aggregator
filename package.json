@@ -17,8 +17,7 @@
         "url": "git+https://github.com/SlimIO/Aggregator.git"
     },
     "keywords": [
-        "aggregator",
-        ""
+        "aggregator"
     ],
     "files": [
         "index.js",
@@ -49,7 +48,7 @@
         "pkg-ok": "^2.3.1"
     },
     "engines": {
-        "node": ">=10"
+        "node": ">=12"
     },
     "nyc": {
         "check-coverage": true,

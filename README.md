@@ -6,7 +6,7 @@
 SlimIO Aggregator
 
 ## Requirements
-- Node.js v10 or higher
+- Node.js v12 or higher
 - [SlimIO Agent](https://github.com/SlimIO/Agent)
 
 ## Getting Started
