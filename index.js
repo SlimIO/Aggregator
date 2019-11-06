@@ -3,7 +3,7 @@ import FastPriorityQueue from "fastpriorityqueue";
 import Addon from "@slimio/addon";
 
 // Require Internal Dependencies
-import { buildMICRow } from "./src/utils";
+import { buildMICRow } from "./src/utils.js";
 
 // CONSTANTS & GLOBALS
 const AGGREGATE_INTERVAL_MS = 1000;
