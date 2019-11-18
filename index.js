@@ -13,13 +13,28 @@ const Aggregator = new Addon("aggregator").lockOn("events");
 
 /**
  * @function checkMic
+ * @param {object} mic
  * @param {!number} micId
  */
-async function checkMic(micId) {
+async function checkMic(mic, micId) {
     try {
         const options = { withSubscriber: true };
         const stats = await Aggregator.sendOne("events.get_mic_stats", [micId, options]);
-        console.log(stats);
+
+        // REVIEW: declare mic.sample_interval as milliseconds by default ?
+        const maxSampleMilliseconds = (mic.sample_interval * 1000) * 720;
+        const maxSampleTimestamp = Date.now() - maxSampleMilliseconds;
+
+        for (const { level, count, timestamp } of stats) {
+            console.log(`mic(${micId}) have ${count} metrics on level ${level}`);
+            if (timestamp > maxSampleTimestamp) {
+                continue;
+            }
+
+
+            const deleteOptions = { since: maxSampleTimestamp, level };
+            await Aggregator.sendOne("events.delete_mic_rows", [micId, deleteOptions]);
+        }
     }
     catch (error) {
         console.error(error);
@@ -32,7 +47,7 @@ async function checkMic(micId) {
 async function aggregateInterval() {
     for (const [id, mic] of Cards.entries()) {
         if (mic.timer.walk() && id > 2 && id < 4) {
-            checkMic(id);
+            checkMic(mic, id);
         }
     }
 }
