@@ -32,7 +32,7 @@
     "dependencies": {
         "@slimio/addon": "^0.22.1",
         "@slimio/scheduler": "^0.8.0",
-        "@slimio/timemap": "^0.3.0",
+        "@slimio/timemap": "^0.3.2",
         "fastpriorityqueue": "^0.6.3"
     },
     "devDependencies": {
